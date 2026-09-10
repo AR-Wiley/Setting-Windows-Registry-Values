@@ -1,4 +1,15 @@
-﻿function Set-TeamsAddinRegistryValues {
+function Validate-Admin {
+
+	if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+		Write-Host "Please run this script as Administrator."
+		return 
+	} else {
+		Write-Host "Running as Administrator."
+	}
+}
+ 
+ 
+ function Set-TeamsAddinRegistryValues {
 
     $path = @{
         AddinsPath = "HKCU:Software\Microsoft\Office\Outlook\Addins\TeamsAddin.FastConnect"
@@ -27,5 +38,7 @@
     }
  
     Set-ItemProperty -Path $AddinsPath -Name LoadCount -Value 75 -Force 
-
 }
+
+Validate-Admin
+Set-TeamsAddinRegistryValues
