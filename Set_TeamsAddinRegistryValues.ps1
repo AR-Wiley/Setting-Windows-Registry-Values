@@ -8,7 +8,6 @@ function Validate-Admin {
 	}
 }
  
- 
  function Set-TeamsAddinRegistryValues {
 
     $path = @{
